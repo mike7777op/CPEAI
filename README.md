@@ -1,1 +1,2 @@
-cpe AI Detection
+cpe
+AI detection on CPE

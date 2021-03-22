@@ -61,14 +61,12 @@ model1 = ResNet50(
 
 x1 = model1.output
 x1 = Dropout(0.5)(x1)
-x2 = Dropout(0.5)(x1)
-x3 = Dropout(0.5)(x1)
 # MDCK = Dense(3, activation='softmax', name = 'softmax1')(x1)
 # MK2 = Dense(4, activation='softmax', name = 'softmax2')(x1)
 # RD = Dense(2,activation='softmax',name = 'softmax3')(x1)
 Influ = Dense(4,activation='softmax', name='softmax1')(x1)
-Para = Dense(5, activation='softmax', name='softmax2')(x2)
-CB = Dense(3, activation='softmax', name='softmax3')(x3)
+Para = Dense(5, activation='softmax', name='softmax2')(x1)
+CB = Dense(3, activation='softmax', name='softmax3')(x1)
 model_final = Model(inputs=model1.input,outputs=[Influ,Para,CB])
 # opt = keras.optimizers.Adam(learning_rate=0.00001)
 model_final.compile(optimizer=tf.compat.v1.train.AdamOptimizer(0.00001),
@@ -78,9 +76,14 @@ model_final.summary()
 
 
 traning = model_final.fit(X_train,[Y_train1,Y_train2,Y_train3],validation_split=0.2,epochs=100, batch_size=32, shuffle=True)
-model_final.save('/home/pmcn/workspace/Test_Code/Resnet50/checkpoint/IPC_Mutitask_three_.h5')
+model_final.save('/home/pmcn/workspace/Test_Code/Resnet50/checkpoint/IPC_Mutitask_4.h5')
 
 loss, softmax1_loss, softmax2_loss, softmax3_loss, softmax1_acc, softmax2_acc, softmax3_acc = model_final.evaluate(X_test, [Y_test1,Y_test2,Y_test3])
+
+Total_acc = (softmax1_acc+softmax2_acc+softmax3_loss)/3
+
+print('loss = ' + str(loss))
+print('Acc = ' + str(Total_acc))
 print ("Softmax1 Loss = " + str(softmax1_loss))
 print ("Softmax2 Loss = " + str(softmax2_loss))
 print ("Softmax3 Loss = " + str(softmax3_loss))
