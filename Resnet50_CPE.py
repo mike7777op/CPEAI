@@ -6,9 +6,13 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 from keras.models import Model
 from keras.applications.resnet50 import ResNet50
+from keras.applications.inception_resnet_v2 import InceptionResNetV2
+from keras.applications.mobilenet_v2 import MobileNetV2
+from keras.applications.xception import Xception
 from keras.layers import Flatten, Dense, Dropout,add
 from keras.preprocessing import image
 from keras.applications.resnet50 import preprocess_input, decode_predictions
+from keras.applications import ResNet101
 from keras.losses import categorical_crossentropy
 from PIL import Image
 import keras
@@ -23,20 +27,31 @@ from keras import backend as K
 from keras.callbacks import ModelCheckpoint
 from keras.optimizers import Adam,SGD
 
+
 K.clear_session()
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
-os.environ['CUDA_VISIBLE_DEVICES'] = '0,1'
+# os.environ['CUDA_VISIBLE_DEVICES'] = '0,1'
+# gpu_options = tf.GPUOptions(allow_growth=True)
+# sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))
+# tf.keras.backend.set_session(sess)
+
 config = tf.ConfigProto()
 config.gpu_options.allow_growth = True
 session = tf.InteractiveSession(config=config)
+K.set_session(session)
 
 
 
 
-X_train = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/IPC_0221/train_npy/X_train.npy')
-Y_train = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/IPC_0221/train_npy/Y_train.npy')
-X_test = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/IPC_0221/test_npy/X_test.npy')
-Y_test = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/IPC_0221/test_npy/Y_test.npy')
+# X_train = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/Data_generator/Single/train_npy/X_train.npy')
+# Y_train = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/Data_generator/Single/train_npy/Y_train.npy')
+# X_test = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/Data_generator/Single/test_npy/X_test.npy')
+# Y_test = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/Data_generator/Single/test_npy/Y_test.npy')
+
+X_train = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/MK2_less/Single/train_npy/X_train.npy')
+Y_train = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/MK2_less/Single/train_npy/Y_train.npy')
+X_test = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/MK2_less/Single/test_npy/X_test.npy')
+Y_test = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/MK2_less/Single/test_npy/Y_test.npy')
 
 
 print('X_train shape : ',X_train.shape)
@@ -64,39 +79,52 @@ model_final = Model(inputs=model.input, outputs=x)
 #     layer.trainable = False
 # for layer in model_final.layers[FREEZE_LAYERS:]:
 #     layer.trainable = True
-learning_rate = 0.00001 
+learning_rate = 0.00003 
 optimizer = Adam(learning_rate=learning_rate)
 model_final.compile(optimizer=optimizer,
               loss=categorical_crossentropy,
               metrics=['accuracy'])
 model_final.summary()
 
-filepath="/home/pmcn/workspace/CPE_AI/Resnet50/checkpoint3/ResNet_2/Single_MDCK_test_0221/weights_best.hdf5"
-checkpoint = ModelCheckpoint(filepath, monitor='val_accuracy', verbose=1, save_best_only=True,mode='max')
-traning = model_final.fit(X_train, Y_train,validation_split=0.25,epochs=100, batch_size=32, shuffle=True,callbacks=[checkpoint])
+# filepath="/home/pmcn/workspace/CPE_AI/Resnet50/checkpoint3/Balance_train/500/LR:0.00001/GMP_1/weights_best-{epoch:02d}.hdf5"
+# checkpoint = ModelCheckpoint(filepath, monitor='val_accuracy', verbose=1, save_best_only=True,mode='max')
+training = model_final.fit(X_train, Y_train,validation_split=0.25,epochs=100, batch_size=32, shuffle=True)
 # model_final.save('/home/pmcn/workspace/Test_Code/Resnet50/checkpoint/Para1MK2_DataGenerator_imagenet_resnet_model_1.h5')
-model_final.save('/home/pmcn/workspace/CPE_AI/Resnet50/checkpoint3/ResNet_2/Single_MDCK_test_0221/0216_single_model_1.h5')
+# model_final.save('/home/pmcn/workspace/CPE_AI/Resnet50/checkpoint3/Balance_train/500/Mobilenet_v2/Single_1/Single_model_1.h5')
 
 preds = model_final.evaluate(X_test, Y_test)
 print ("Loss = " + str(preds[0]))
 print ("Test Accuracy = " + str(preds[1]))
 
-plt.plot(traning.history['accuracy'],':')
-plt.plot(traning.history['loss'])
-plt.title('models accuracy and loss')
+#train loss,val loss
+plt.plot(training.history['loss'],'r-.s')
+plt.plot(training.history['val_loss'],'g--^')
+plt.title('Training loss and val loss')
+plt.ylabel("loss")
+plt.xlabel("epoch")
+plt.legend(["Train_loss","Val_loss"],loc="upper right")
 plt.grid(True)
 plt.show()
 
-plt.plot(traning.history['val_accuracy'])
-plt.plot(traning.history['val_loss'])
-plt.title('models val_accuracy and val_loss')
-plt.grid(True)
-plt.show()
+print(training.history['loss'][99])
+print(training.history['val_loss'][99])
 
-plt.plot(traning.history['accuracy'],':')
-plt.plot(traning.history['loss'],'--')
-plt.plot(traning.history['val_accuracy'])
-plt.plot(traning.history['val_loss'],'-.')
+# plt.plot(traning.history['accuracy'],':')
+# plt.plot(traning.history['loss'])
+# plt.title('models accuracy and loss')
+# plt.grid(True)
+# plt.show()
+
+# plt.plot(traning.history['val_accuracy'])
+# plt.plot(traning.history['val_loss'])
+# plt.title('models val_accuracy and val_loss')
+# plt.grid(True)
+# plt.show()
+
+plt.plot(training.history['accuracy'],'r-.^')
+plt.plot(training.history['loss'],'g--')
+plt.plot(training.history['val_accuracy'],'b--*')
+plt.plot(training.history['val_loss'],'y-o')
 plt.title("Resnet50_model_1")
 plt.ylabel("loss/acc")
 plt.xlabel("epoch")
@@ -169,5 +197,5 @@ def plot_confusion(model,X_test,Y_test,labels):
     plot_confusion_matrix(cm, normalize=False,target_names=labels,title='Non normalize Confusion Matrix')
 
 
-plot_confusion(model_final, X_test, Y_test,labels=All_list)
+# plot_confusion(model_final, X_test, Y_test,labels=All_list)
 

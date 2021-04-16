@@ -6,6 +6,7 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 from keras.models import Model
 from keras.applications.resnet50 import ResNet50
+from keras.applications import ResNet101
 from keras.layers import Flatten, Dense, Dropout, concatenate
 from keras.preprocessing import image
 from keras.applications.resnet50 import preprocess_input, decode_predictions
@@ -23,37 +24,39 @@ from keras.optimizers import Adam
 
 K.clear_session()
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
-os.environ['CUDA_VISIBLE_DEVICES'] = '0,1'
+# os.environ['CUDA_VISIBLE_DEVICES'] = '0,1'
 config = tf.ConfigProto()
 config.gpu_options.allow_growth = True
 session = tf.InteractiveSession(config=config)
+K.set_session(session)
+
 
 
 
 #數據
-# X_train = np.load('/home/pmcn/workspace/Test_Code/Resnet50/Para_less_data/train_npy/Multi/X_train.npy')
-# Y_train1 = np.load('/home/pmcn/workspace/Test_Code/Resnet50/Para_less_data/train_npy/Multi/Influ_Y_train1.npy')
-# Y_train2 = np.load('/home/pmcn/workspace/Test_Code/Resnet50/Para_less_data/train_npy/Multi/Para_Y_train2.npy')
-# Y_train3 = np.load('/home/pmcn/workspace/Test_Code/Resnet50/Para_less_data/train_npy/Multi/CB_Y_train3.npy')
+X_train = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/MK2_less/Multi/train_npy/X_train.npy')
+Y_train1 = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/MK2_less/Multi/train_npy/Influ_Y_train1.npy')
+Y_train2 = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/MK2_less/Multi/train_npy/Para_Y_train2.npy')
+Y_train3 = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/MK2_less/Multi/train_npy/EV_Y_train3.npy')
 
-# X_test = np.load('/home/pmcn/workspace/Test_Code/Resnet50/Para_less_data/test_npy/Multi/X_test.npy')
-# Y_test1 = np.load('/home/pmcn/workspace/Test_Code/Resnet50/Para_less_data/test_npy/Multi/Influ_Y_test1.npy')
-# Y_test2 = np.load('/home/pmcn/workspace/Test_Code/Resnet50/Para_less_data/test_npy/Multi/Para_Y_test2.npy')
-# Y_test3 = np.load('/home/pmcn/workspace/Test_Code/Resnet50/Para_less_data/test_npy/Multi/CB_Y_test3.npy')
+X_test = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/MK2_less/Multi/test_npy/X_test.npy')
+Y_test1 = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/MK2_less/Multi/test_npy/Influ_Y_test1.npy')
+Y_test2 = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/MK2_less/Multi/test_npy/Para_Y_test2.npy')
+Y_test3 = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/MK2_less/Multi/test_npy/EV_Y_test3.npy')
 
-X_train = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/IPC_0221/Multi/train_npy/X_train.npy')
-Y_train1 = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/IPC_0221/Multi/train_npy/Influ_Y_train1.npy')
-Y_train2 = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/IPC_0221/Multi/train_npy/Para_Y_train2.npy')
-Y_train3 = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/IPC_0221/Multi/train_npy/EV_Y_train3.npy')
-# Y_train4 = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator_0114/train_npy/Multi_2/RSV_Y_train4.npy')
-# Y_train5 = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/New_CIP_Generator_0114/train_npy/Multi/ADV_Y_train5.npy')
+# X_train = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/Data_generator/Multi/train_npy/X_train.npy')
+# Y_train1 = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/Data_generator/Multi/train_npy/Influ_Y_train1.npy')
+# Y_train2 = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/Data_generator/Multi/train_npy/Para_Y_train2.npy')
+# Y_train3 = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/Data_generator/Multi/train_npy/EV_Y_train3.npy')
+# # Y_train4 = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator_0114/train_npy/Multi_2/RSV_Y_train4.npy')
+# # Y_train5 = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/New_CIP_Generator_0114/train_npy/Multi/ADV_Y_train5.npy')
 
-X_test = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/IPC_0221/Multi/test_npy/X_test.npy')
-Y_test1 = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/IPC_0221/Multi/test_npy/Influ_Y_test1.npy')
-Y_test2 = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/IPC_0221/Multi/test_npy/Para_Y_test2.npy')
-Y_test3 = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/IPC_0221/Multi/test_npy/EV_Y_test3.npy')
-# Y_test4 = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator_0114/test_npy/Multi_2/RSV_Y_test4.npy')
-# Y_test5 = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/New_CIP_Generator_0114/test_npy/Multi/ADV_Y_test5.npy')
+# X_test = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/Data_generator/Multi/test_npy/X_test.npy')
+# Y_test1 = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/Data_generator/Multi/test_npy/Influ_Y_test1.npy')
+# Y_test2 = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/Data_generator/Multi/test_npy/Para_Y_test2.npy')
+# Y_test3 = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/Data_generator/Multi/test_npy/EV_Y_test3.npy')
+# # Y_test4 = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator_0114/test_npy/Multi_2/RSV_Y_test4.npy')
+# # Y_test5 = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/New_CIP_Generator_0114/test_npy/Multi/ADV_Y_test5.npy')
 
 
 
@@ -97,7 +100,7 @@ EV = Dense(3, activation='softmax', name='softmax3')(x1)
 
 model_final = Model(inputs=model1.input,outputs=[Influ,Para,EV])
 # opt = keras.optimizers.Adam(learning_rate=0.00001)
-learning_rate = 0.00001 
+learning_rate = 0.00003 
 optimizer = Adam(lr=learning_rate)
 model_final.compile(optimizer=optimizer,
             # optimizer=tf.compat.v1.train.AdamOptimizer(0.00001),
@@ -106,11 +109,11 @@ model_final.compile(optimizer=optimizer,
             metrics=['accuracy'])
 model_final.summary()
 
-filepath="/home/pmcn/workspace/CPE_AI/Resnet50/checkpoint3/ResNet_2/Single_MDCK_test_0221/weights_best-{epoch:02d}.hdf5"
-checkpoint = ModelCheckpoint(filepath, verbose=1, save_best_only=False)
-csvlogger = keras.callbacks.CSVLogger(filename='ResNet_Multi.csv',separator=',',append=True)
-traning = model_final.fit(X_train,[Y_train1,Y_train2,Y_train3],validation_split=0.25,epochs=100, batch_size=32, shuffle=True,callbacks=[checkpoint,csvlogger])
-model_final.save('/home/pmcn/workspace/CPE_AI/Resnet50/checkpoint3/ResNet_2/Single_MDCK_test_0221/Multi_model_1.h5')
+# filepath="/home/pmcn/workspace/CPE_AI/Resnet50/checkpoint3/Balance_train/500/ResNet101_1/Multi_1/weights_best-{epoch:02d}.hdf5"
+# checkpoint = ModelCheckpoint(filepath, verbose=1, save_best_only=False)
+# csvlogger = keras.callbacks.CSVLogger(filename='ResNet_Multi.csv',separator=',',append=True)
+training = model_final.fit(X_train,[Y_train1,Y_train2,Y_train3],validation_split=0.25,epochs=100, batch_size=32, shuffle=True)
+# model_final.save('/home/pmcn/workspace/CPE_AI/Resnet50/checkpoint3/Balance_train/500/ResNet101_1/Multi_1/Multi_lr:0.00003_1.h5')
 
 # loss, softmax1_loss, softmax2_loss, softmax3_loss, softmax4_loss, softmax1_acc, softmax2_acc, softmax3_acc, softmax4_acc = model_final.evaluate(X_test, [Y_test1,Y_test2,Y_test3,Y_test4])
 loss, softmax1_loss, softmax2_loss, softmax3_loss, softmax1_acc, softmax2_acc, softmax3_acc  = model_final.evaluate(X_test, [Y_test1,Y_test2,Y_test3])
@@ -131,8 +134,8 @@ print ("Softmax3 Accuracy = " + str(softmax3_acc))
 # print('Softmax5_Accuracy = ' + str(softmax5_acc))
 
 #train loss,val loss
-plt.plot(traning.history['loss'],':')
-plt.plot(traning.history['val_loss'],'--')
+plt.plot(training.history['loss'],'r-.s')
+plt.plot(training.history['val_loss'],'g--^')
 plt.title('Training loss and val loss')
 plt.ylabel("loss")
 plt.xlabel("epoch")
@@ -140,9 +143,12 @@ plt.legend(["Train_loss","Val_loss"],loc="upper left")
 plt.grid(True)
 plt.show()
 
+print(training.history['loss'][99])
+print(training.history['val_loss'][99])
+
 #Influ loss and acc
-plt.plot(traning.history['softmax1_accuracy'])
-plt.plot(traning.history['softmax1_loss'])
+plt.plot(training.history['softmax1_accuracy'])
+plt.plot(training.history['softmax1_loss'])
 plt.title('softmax1 accuracy and loss')
 plt.ylabel("loss/acc")
 plt.xlabel("epoch")
@@ -151,8 +157,8 @@ plt.grid(True)
 plt.show()
 
 # Influ val_loss and val_acc
-plt.plot(traning.history['val_softmax1_accuracy'])
-plt.plot(traning.history['val_softmax1_loss'])
+plt.plot(training.history['val_softmax1_accuracy'])
+plt.plot(training.history['val_softmax1_loss'])
 plt.title('softmax1_val_accuracy and val_loss')
 plt.ylabel("loss/acc")
 plt.xlabel("epoch")
@@ -160,10 +166,10 @@ plt.legend(["val_acc","val_loss"],loc="upper left")
 plt.grid(True)
 plt.show()
 
-plt.plot(traning.history['softmax1_accuracy'])
-plt.plot(traning.history['softmax1_loss'])
-plt.plot(traning.history['val_softmax1_accuracy'])
-plt.plot(traning.history['val_softmax1_loss'])
+plt.plot(training.history['softmax1_accuracy'])
+plt.plot(training.history['softmax1_loss'])
+plt.plot(training.history['val_softmax1_accuracy'])
+plt.plot(training.history['val_softmax1_loss'])
 plt.title('softmax1')
 plt.ylabel("loss/acc")
 plt.xlabel("epoch")
@@ -172,8 +178,8 @@ plt.grid(True)
 plt.show()
 
 #Para loss and acc
-plt.plot(traning.history['softmax2_accuracy'])
-plt.plot(traning.history['softmax2_loss'])
+plt.plot(training.history['softmax2_accuracy'])
+plt.plot(training.history['softmax2_loss'])
 plt.title('softmax2 accuracy and loss')
 plt.ylabel("loss/acc")
 plt.xlabel("epoch")
@@ -182,8 +188,8 @@ plt.grid(True)
 plt.show()
 
 #Para val_loss and val_acc
-plt.plot(traning.history['val_softmax2_accuracy'])
-plt.plot(traning.history['val_softmax2_loss'])
+plt.plot(training.history['val_softmax2_accuracy'])
+plt.plot(training.history['val_softmax2_loss'])
 plt.title('softmax2_val_accuracy and val_loss')
 plt.ylabel("loss/acc")
 plt.xlabel("epoch")
@@ -191,10 +197,10 @@ plt.legend(["val_acc","val_loss"],loc="upper left")
 plt.grid(True)
 plt.show()
 
-plt.plot(traning.history['softmax2_accuracy'])
-plt.plot(traning.history['softmax2_loss'])
-plt.plot(traning.history['val_softmax2_accuracy'])
-plt.plot(traning.history['val_softmax2_loss'])
+plt.plot(training.history['softmax2_accuracy'])
+plt.plot(training.history['softmax2_loss'])
+plt.plot(training.history['val_softmax2_accuracy'])
+plt.plot(training.history['val_softmax2_loss'])
 plt.title('softmax2')
 plt.ylabel("loss/acc")
 plt.xlabel("epoch")
@@ -203,8 +209,8 @@ plt.grid(True)
 plt.show()
 
 #EV loss and acc
-plt.plot(traning.history['softmax3_accuracy'])
-plt.plot(traning.history['softmax3_loss'])
+plt.plot(training.history['softmax3_accuracy'])
+plt.plot(training.history['softmax3_loss'])
 plt.title('softmax3 accuracy and loss')
 plt.ylabel("loss/acc")
 plt.xlabel("epoch")
@@ -213,8 +219,8 @@ plt.grid(True)
 plt.show()
 
 #EV val_loss and val_acc
-plt.plot(traning.history['val_softmax3_accuracy'])
-plt.plot(traning.history['val_softmax3_loss'])
+plt.plot(training.history['val_softmax3_accuracy'])
+plt.plot(training.history['val_softmax3_loss'])
 plt.title('softmax3_val_accuracy and val_loss')
 plt.ylabel("loss/acc")
 plt.xlabel("epoch")
@@ -222,10 +228,10 @@ plt.legend(["val_acc","val_loss"],loc="upper left")
 plt.grid(True)
 plt.show()
 
-plt.plot(traning.history['softmax3_accuracy'])
-plt.plot(traning.history['softmax3_loss'])
-plt.plot(traning.history['val_softmax3_accuracy'])
-plt.plot(traning.history['val_softmax3_loss'])
+plt.plot(training.history['softmax3_accuracy'])
+plt.plot(training.history['softmax3_loss'])
+plt.plot(training.history['val_softmax3_accuracy'])
+plt.plot(training.history['val_softmax3_loss'])
 plt.title('softmax3')
 plt.ylabel("loss/acc")
 plt.xlabel("epoch")
@@ -235,8 +241,8 @@ plt.show()
 
 
 #RSV loss and acc
-# plt.plot(traning.history['softmax4_accuracy'])
-# plt.plot(traning.history['softmax4_loss'])
+# plt.plot(training.history['softmax4_accuracy'])
+# plt.plot(training.history['softmax4_loss'])
 # plt.title('softmax4 accuracy and loss')
 # plt.ylabel("loss/acc")
 # plt.xlabel("epoch")
@@ -244,18 +250,18 @@ plt.show()
 # plt.show()
 
 # #RSV val_loss and val_acc
-# plt.plot(traning.history['val_softmax4_accuracy'])
-# plt.plot(traning.history['val_softmax4_loss'])
+# plt.plot(training.history['val_softmax4_accuracy'])
+# plt.plot(training.history['val_softmax4_loss'])
 # plt.title('softmax4_val_accuracy and val_loss')
 # plt.ylabel("loss/acc")
 # plt.xlabel("epoch")
 # plt.legend(["val_acc","val_loss"],loc="upper left")
 # plt.show()
 
-# plt.plot(traning.history['softmax4_accuracy'])
-# plt.plot(traning.history['softmax4_loss'])
-# plt.plot(traning.history['val_softmax4_accuracy'])
-# plt.plot(traning.history['val_softmax4_loss'])
+# plt.plot(training.history['softmax4_accuracy'])
+# plt.plot(training.history['softmax4_loss'])
+# plt.plot(training.history['val_softmax4_accuracy'])
+# plt.plot(training.history['val_softmax4_loss'])
 # plt.title('softmax4')
 # plt.ylabel("loss/acc")
 # plt.xlabel("epoch")
@@ -263,8 +269,8 @@ plt.show()
 # plt.show()
 
 # #ADV loss and acc
-# plt.plot(traning.history['softmax5_accuracy'])
-# plt.plot(traning.history['softmax5_loss'])
+# plt.plot(training.history['softmax5_accuracy'])
+# plt.plot(training.history['softmax5_loss'])
 # plt.title('softmax5 accuracy and loss')
 # plt.ylabel("loss/acc")
 # plt.xlabel("epoch")
@@ -272,18 +278,18 @@ plt.show()
 # plt.show()
 
 # #ADV val_loss and val_acc
-# plt.plot(traning.history['val_softmax5_accuracy'])
-# plt.plot(traning.history['val_softmax5_loss'])
+# plt.plot(training.history['val_softmax5_accuracy'])
+# plt.plot(training.history['val_softmax5_loss'])
 # plt.title('softmax5_val_accuracy and val_loss')
 # plt.ylabel("loss/acc")
 # plt.xlabel("epoch")
 # plt.legend(["val_acc","val_loss"],loc="upper left")
 # plt.show()
 
-# plt.plot(traning.history['softmax5_accuracy'])
-# plt.plot(traning.history['softmax5_loss'])
-# plt.plot(traning.history['val_softmax5_accuracy'])
-# plt.plot(traning.history['val_softmax5_loss'])
+# plt.plot(training.history['softmax5_accuracy'])
+# plt.plot(training.history['softmax5_loss'])
+# plt.plot(training.history['val_softmax5_accuracy'])
+# plt.plot(training.history['val_softmax5_loss'])
 # plt.title('softmax5')
 # plt.ylabel("loss/acc")
 # plt.xlabel("epoch")

@@ -13,33 +13,34 @@ def DataSet():
     # 每个文件夹下又创建了 glue，medicine 两个文件夹，所以这里一共四个路径
   
     
-    train_path_1 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/train/IA/'
-    train_path_2 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/train/IB/'
-    train_path_3 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/train/MDCK_2/'
-    train_path_4 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/train/Para1/'
-    train_path_5 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/train/Para2/'
-    train_path_6 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/train/Para3/' 
-    train_path_7 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/train/MK2/'
-    train_path_8 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/train/CB1/'    
-    train_path_9 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/train/RD/'
-    # train_path_10 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator_0114/train/RSV/'
-    # train_path_11 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator_0114/train/Hep-2/'
-    # train_path_12 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator_0114/train/ADV/'
-    # train_path_13 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator_0114/train/A549/'
+    train_path_1 = '/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/Data_generator/train/IA_500/'
+    train_path_2 = '/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/Data_generator/train/IB_500/'
+    train_path_3 = '/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/Data_generator/train/MDCK_500/'
+    train_path_4 = '/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/Data_generator/train/Para1_500/'
+    train_path_5 = '/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/Data_generator/train/Para2_500/'
+    train_path_6 = '/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/Data_generator/train/Para3_500/' 
+    train_path_7 = '/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/Data_generator/train/MK2_500/'
+    train_path_8 = '/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/Data_generator/train/EV_500/'    
+    train_path_9 = '/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/Data_generator/train/RD_500/'
+    # train_path_10 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_original_0114/train/RSV/'
+    # train_path_11 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_original_0114/train/Hep-2/'
+    # train_path_12 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_original_0114/train/ADV/'
+    # train_path_13 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_original_0114/train/A549/'
 
-    test_path_1 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/test/IA/'
-    test_path_2 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/test/IB/'
-    test_path_3 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/test/MDCK_2/'
-    test_path_4 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/test/Para1/'
-    test_path_5 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/test/Para2/'
-    test_path_6 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/test/Para3/'
-    test_path_7 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/test/MK2/'    
-    test_path_8 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/test/CB1/'
-    test_path_9 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/test/RD/'
-    # test_path_10 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator_0114/test/RSV/'
-    # test_path_11 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator_0114/test/Hep-2/'
-    # test_path_12 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator_0114/test/ADV/'
-    # test_path_13 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator_0114/test/A549/'
+    test_path_1 = '/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/Data_generator/test/IA_500/'
+    test_path_2 = '/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/Data_generator/test/IB_500/'
+    test_path_3 = '/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/Data_generator/test/MDCK_500/'
+    test_path_4 = '/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/Data_generator/test/Para1_500/'
+    test_path_5 = '/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/Data_generator/test/Para2_500/'
+    test_path_6 = '/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/Data_generator/test/Para3_500/'
+    test_path_7 = '/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/Data_generator/test/MK2_500/'    
+    test_path_8 = '/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/Data_generator/test/EV_500/'
+    test_path_9 = '/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/Data_generator/test/RD_500/'
+    # test_path_10 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_original_0114/test/RSV/'
+    # test_path_11 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_original_0114/test/Hep-2/'
+    # test_path_12 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_original_0114/test/ADV/'
+    # test_path_13 = '/home/pmcn/workspace/CPE_AI/Resnet50/New_original_0114/test/A549/'
+
 
     # os.listdir(path) 是 python 中的函数，它会列出 path 下的所有文件名
     imglist_train_1 = os.listdir(train_path_1)
@@ -73,17 +74,17 @@ def DataSet():
     
     
     
-    # X_train = np.empty((len(imglist_train_1) + len(imglist_train_2) , 224, 224, 3))
+    # X_train = np.empty((len(imglist_train_1) + len(imglist_train_2) , 299, 299, 3))
     # Y_train = np.empty((len(imglist_train_1) + len(imglist_train_2) , 2))
 
     #Influ,Para,EV data
-    X_train = np.empty((len(imglist_train_1) + len(imglist_train_2) + len(imglist_train_3) + len(imglist_train_4) + len(imglist_train_5) + len(imglist_train_6) + len(imglist_train_7) + len(imglist_train_8) + len(imglist_train_9), 224, 224, 3))
+    X_train = np.empty((len(imglist_train_1) + len(imglist_train_2) + len(imglist_train_3) + len(imglist_train_4) + len(imglist_train_5) + len(imglist_train_6) + len(imglist_train_7) + len(imglist_train_8) + len(imglist_train_9), 299, 299, 3))
     Y_train1 = np.empty((len(imglist_train_1) + len(imglist_train_2) + len(imglist_train_3) + len(imglist_train_4) + len(imglist_train_5) + len(imglist_train_6) + len(imglist_train_7) + len(imglist_train_8) + len(imglist_train_9), 4))
     Y_train2 = np.empty((len(imglist_train_1) + len(imglist_train_2) + len(imglist_train_3) + len(imglist_train_4) + len(imglist_train_5) + len(imglist_train_6) + len(imglist_train_7) + len(imglist_train_8) + len(imglist_train_9), 5))
     Y_train3 = np.empty((len(imglist_train_1) + len(imglist_train_2) + len(imglist_train_3) + len(imglist_train_4) + len(imglist_train_5) + len(imglist_train_6) + len(imglist_train_7) + len(imglist_train_8) + len(imglist_train_9), 3))
    
     #Influ,Para,EV,RSV,ADV data
-    # X_train = np.empty((len(imglist_train_1) + len(imglist_train_2) + len(imglist_train_3) + len(imglist_train_4) + len(imglist_train_5) + len(imglist_train_6) + len(imglist_train_7) + len(imglist_train_8) + len(imglist_train_9) + len(imglist_train_10) + len(imglist_train_11), 224, 224, 3))
+    # X_train = np.empty((len(imglist_train_1) + len(imglist_train_2) + len(imglist_train_3) + len(imglist_train_4) + len(imglist_train_5) + len(imglist_train_6) + len(imglist_train_7) + len(imglist_train_8) + len(imglist_train_9) + len(imglist_train_10) + len(imglist_train_11), 299, 299, 3))
     # Y_train1 = np.empty((len(imglist_train_1) + len(imglist_train_2) + len(imglist_train_3) + len(imglist_train_4) + len(imglist_train_5) + len(imglist_train_6) + len(imglist_train_7) + len(imglist_train_8) + len(imglist_train_9) + len(imglist_train_10) + len(imglist_train_11), 4))
     # Y_train2 = np.empty((len(imglist_train_1) + len(imglist_train_2) + len(imglist_train_3) + len(imglist_train_4) + len(imglist_train_5) + len(imglist_train_6) + len(imglist_train_7) + len(imglist_train_8) + len(imglist_train_9) + len(imglist_train_10) + len(imglist_train_11), 5))
     # Y_train3 = np.empty((len(imglist_train_1) + len(imglist_train_2) + len(imglist_train_3) + len(imglist_train_4) + len(imglist_train_5) + len(imglist_train_6) + len(imglist_train_7) + len(imglist_train_8) + len(imglist_train_9) + len(imglist_train_10) + len(imglist_train_11), 3))
@@ -97,9 +98,9 @@ def DataSet():
         img_path = train_path_1 + img_name
         # 通过 image.load_img() 函数讀取對應的图片，並轉換成目標大小
         #  image 是 tensorflow.keras.preprocessing 中的一個對象
-        img = image.load_img(img_path, target_size=(224, 224))
+        img = image.load_img(img_path, target_size=(299, 299))
         # 将圖片轉換成 numpy 数组，並除以 255 ，歸一化
-        # 轉換之后 img 的 shape 是 （224，224，3）
+        # 轉換之后 img 的 shape 是 （299，299，3）
         img = image.img_to_array(img) / 255.0
         
         # 将處理好的圖片装進定義好的 X_train 對象中
@@ -115,7 +116,7 @@ def DataSet():
     for img_name in imglist_train_2:
 
         img_path = train_path_2 + img_name
-        img = image.load_img(img_path, target_size=(224, 224))
+        img = image.load_img(img_path, target_size=(299, 299))
         img = image.img_to_array(img) / 255.0
         
         X_train[count] = img
@@ -129,7 +130,7 @@ def DataSet():
     for img_name in imglist_train_3:
         
         img_path = train_path_3 + img_name
-        img = image.load_img(img_path, target_size=(224, 224))
+        img = image.load_img(img_path, target_size=(299, 299))
         img = image.img_to_array(img) / 255.0
         
         X_train[count] = img
@@ -143,7 +144,7 @@ def DataSet():
     for img_name in imglist_train_4:
 
         img_path = train_path_4 + img_name
-        img = image.load_img(img_path, target_size=(224, 224))
+        img = image.load_img(img_path, target_size=(299, 299))
         img = image.img_to_array(img) / 255.0
         
         X_train[count] = img
@@ -157,7 +158,7 @@ def DataSet():
     for img_name in imglist_train_5:
 
         img_path = train_path_5 + img_name
-        img = image.load_img(img_path, target_size=(224, 224))
+        img = image.load_img(img_path, target_size=(299, 299))
         img = image.img_to_array(img) / 255.0
         
         X_train[count] = img
@@ -170,7 +171,7 @@ def DataSet():
     for img_name in imglist_train_6:
 
         img_path = train_path_6 + img_name
-        img = image.load_img(img_path, target_size=(224, 224))
+        img = image.load_img(img_path, target_size=(299, 299))
         img = image.img_to_array(img) / 255.0
         
         X_train[count] = img
@@ -184,7 +185,7 @@ def DataSet():
     for img_name in imglist_train_7:
 
         img_path = train_path_7 + img_name
-        img = image.load_img(img_path, target_size=(224, 224))
+        img = image.load_img(img_path, target_size=(299, 299))
         img = image.img_to_array(img) / 255.0
         
         X_train[count] = img
@@ -198,7 +199,7 @@ def DataSet():
     for img_name in imglist_train_8:
 
         img_path = train_path_8 + img_name
-        img = image.load_img(img_path, target_size=(224, 224))
+        img = image.load_img(img_path, target_size=(299, 299))
         img = image.img_to_array(img) / 255.0
         
         X_train[count] = img
@@ -212,7 +213,7 @@ def DataSet():
     for img_name in imglist_train_9:
 
         img_path = train_path_9 + img_name
-        img = image.load_img(img_path, target_size=(224, 224))
+        img = image.load_img(img_path, target_size=(299, 299))
         img = image.img_to_array(img) / 255.0
         
         X_train[count] = img
@@ -226,7 +227,7 @@ def DataSet():
     # for img_name in imglist_train_10:
 
     #     img_path = train_path_10 + img_name
-    #     img = image.load_img(img_path, target_size=(224, 224))
+    #     img = image.load_img(img_path, target_size=(299, 299))
     #     img = image.img_to_array(img) / 255.0
         
     #     X_train[count] = img
@@ -240,7 +241,7 @@ def DataSet():
     # for img_name in imglist_train_11:
 
     #     img_path = train_path_11 + img_name
-    #     img = image.load_img(img_path, target_size=(224, 224))
+    #     img = image.load_img(img_path, target_size=(299, 299))
     #     img = image.img_to_array(img) / 255.0
         
     #     X_train[count] = img
@@ -254,7 +255,7 @@ def DataSet():
     # for img_name in imglist_train_12:
 
     #     img_path = train_path_12 + img_name
-    #     img = image.load_img(img_path, target_size=(224, 224))
+    #     img = image.load_img(img_path, target_size=(299, 299))
     #     img = image.img_to_array(img) / 255.0
         
     #     X_train[count] = img
@@ -268,7 +269,7 @@ def DataSet():
     # for img_name in imglist_train_13:
 
     #     img_path = train_path_13 + img_name
-    #     img = image.load_img(img_path, target_size=(224, 224))
+    #     img = image.load_img(img_path, target_size=(299, 299))
     #     img = image.img_to_array(img) / 255.0
         
     #     X_train[count] = img
@@ -280,15 +281,15 @@ def DataSet():
     #     count+=1
 
     # 測试集的数据，與上面的内容完全相同
-    # X_test = np.empty((len(imglist_test_1) + len(imglist_test_2) , 224, 224, 3))
+    # X_test = np.empty((len(imglist_test_1) + len(imglist_test_2) , 299, 299, 3))
     # Y_test = np.empty((len(imglist_test_1) + len(imglist_test_2) , 2))
 
-    X_test = np.empty((len(imglist_test_1) + len(imglist_test_2) + len(imglist_test_3) + len(imglist_test_4) + len(imglist_test_5) + len(imglist_test_6) + len(imglist_test_7) + len(imglist_test_8) + len(imglist_test_9), 224, 224, 3))
+    X_test = np.empty((len(imglist_test_1) + len(imglist_test_2) + len(imglist_test_3) + len(imglist_test_4) + len(imglist_test_5) + len(imglist_test_6) + len(imglist_test_7) + len(imglist_test_8) + len(imglist_test_9), 299, 299, 3))
     Y_test1 = np.empty((len(imglist_test_1) + len(imglist_test_2) + len(imglist_test_3) + len(imglist_test_4) + len(imglist_test_5) + len(imglist_test_6) + len(imglist_test_7) + len(imglist_test_8) + len(imglist_test_9), 4))
     Y_test2 = np.empty((len(imglist_test_1) + len(imglist_test_2) + len(imglist_test_3) + len(imglist_test_4) + len(imglist_test_5) + len(imglist_test_6) + len(imglist_test_7) + len(imglist_test_8) + len(imglist_test_9), 5))
     Y_test3 = np.empty((len(imglist_test_1) + len(imglist_test_2) + len(imglist_test_3) + len(imglist_test_4) + len(imglist_test_5) + len(imglist_test_6) + len(imglist_test_7) + len(imglist_test_8) + len(imglist_test_9), 3))
 
-    # X_test = np.empty((len(imglist_test_1) + len(imglist_test_2) + len(imglist_test_3) + len(imglist_test_4) + len(imglist_test_5) + len(imglist_test_6) + len(imglist_test_7) + len(imglist_test_8) + len(imglist_test_9) + len(imglist_test_10) + len(imglist_test_11), 224, 224, 3))
+    # X_test = np.empty((len(imglist_test_1) + len(imglist_test_2) + len(imglist_test_3) + len(imglist_test_4) + len(imglist_test_5) + len(imglist_test_6) + len(imglist_test_7) + len(imglist_test_8) + len(imglist_test_9) + len(imglist_test_10) + len(imglist_test_11), 299, 299, 3))
     # Y_test1 = np.empty((len(imglist_test_1) + len(imglist_test_2) + len(imglist_test_3) + len(imglist_test_4) + len(imglist_test_5) + len(imglist_test_6) + len(imglist_test_7) + len(imglist_test_8) + len(imglist_test_9) + len(imglist_test_10) + len(imglist_test_11), 4))
     # Y_test2 = np.empty((len(imglist_test_1) + len(imglist_test_2) + len(imglist_test_3) + len(imglist_test_4) + len(imglist_test_5) + len(imglist_test_6) + len(imglist_test_7) + len(imglist_test_8) + len(imglist_test_9) + len(imglist_test_10) + len(imglist_test_11), 5))
     # Y_test3 = np.empty((len(imglist_test_1) + len(imglist_test_2) + len(imglist_test_3) + len(imglist_test_4) + len(imglist_test_5) + len(imglist_test_6) + len(imglist_test_7) + len(imglist_test_8) + len(imglist_test_9) + len(imglist_test_10) + len(imglist_test_11), 3))
@@ -298,7 +299,7 @@ def DataSet():
     for img_name in imglist_test_1:
 
         img_path = test_path_1 + img_name
-        img = image.load_img(img_path, target_size=(224, 224))
+        img = image.load_img(img_path, target_size=(299, 299))
         img = image.img_to_array(img) / 255.0
         
         X_test[count] = img
@@ -312,7 +313,7 @@ def DataSet():
     for img_name in imglist_test_2:
         
         img_path = test_path_2 + img_name
-        img = image.load_img(img_path, target_size=(224, 224))
+        img = image.load_img(img_path, target_size=(299, 299))
         img = image.img_to_array(img) / 255.0
         
         X_test[count] = img
@@ -326,7 +327,7 @@ def DataSet():
     for img_name in imglist_test_3:
 
         img_path = test_path_3 + img_name
-        img = image.load_img(img_path, target_size=(224, 224))
+        img = image.load_img(img_path, target_size=(299, 299))
         img = image.img_to_array(img) / 255.0
         
         X_test[count] = img
@@ -340,7 +341,7 @@ def DataSet():
     for img_name in imglist_test_4:
 
         img_path = test_path_4 + img_name
-        img = image.load_img(img_path, target_size=(224, 224))
+        img = image.load_img(img_path, target_size=(299, 299))
         img = image.img_to_array(img) / 255.0
         
         X_test[count] = img
@@ -354,7 +355,7 @@ def DataSet():
     for img_name in imglist_test_5:
 
         img_path = test_path_5 + img_name
-        img = image.load_img(img_path, target_size=(224, 224))
+        img = image.load_img(img_path, target_size=(299, 299))
         img = image.img_to_array(img) / 255.0
         
         X_test[count] = img
@@ -368,7 +369,7 @@ def DataSet():
     for img_name in imglist_test_6:
 
         img_path = test_path_6 + img_name
-        img = image.load_img(img_path, target_size=(224, 224))
+        img = image.load_img(img_path, target_size=(299, 299))
         img = image.img_to_array(img) / 255.0
         
         X_test[count] = img
@@ -383,7 +384,7 @@ def DataSet():
     for img_name in imglist_test_7:
 
         img_path = test_path_7 + img_name
-        img = image.load_img(img_path, target_size=(224, 224))
+        img = image.load_img(img_path, target_size=(299, 299))
         img = image.img_to_array(img) / 255.0
         
         X_test[count] = img
@@ -398,7 +399,7 @@ def DataSet():
     for img_name in imglist_test_8:
 
         img_path = test_path_8 + img_name
-        img = image.load_img(img_path, target_size=(224, 224))
+        img = image.load_img(img_path, target_size=(299, 299))
         img = image.img_to_array(img) / 255.0
         
         X_test[count] = img
@@ -412,7 +413,7 @@ def DataSet():
     for img_name in imglist_test_9:
 
         img_path = test_path_9 + img_name
-        img = image.load_img(img_path, target_size=(224, 224))
+        img = image.load_img(img_path, target_size=(299, 299))
         img = image.img_to_array(img) / 255.0
         
         X_test[count] = img
@@ -426,7 +427,7 @@ def DataSet():
     # for img_name in imglist_test_10:
 
     #     img_path = test_path_10 + img_name
-    #     img = image.load_img(img_path, target_size=(224, 224))
+    #     img = image.load_img(img_path, target_size=(299, 299))
     #     img = image.img_to_array(img) / 255.0
         
     #     X_test[count] = img
@@ -440,7 +441,7 @@ def DataSet():
     # for img_name in imglist_test_11:
 
     #     img_path = test_path_11 + img_name
-    #     img = image.load_img(img_path, target_size=(224, 224))
+    #     img = image.load_img(img_path, target_size=(299, 299))
     #     img = image.img_to_array(img) / 255.0
         
     #     X_test[count] = img
@@ -454,7 +455,7 @@ def DataSet():
     # for img_name in imglist_test_12:
 
     #     img_path = test_path_12 + img_name
-    #     img = image.load_img(img_path, target_size=(224, 224))
+    #     img = image.load_img(img_path, target_size=(299, 299))
     #     img = image.img_to_array(img) / 255.0
         
     #     X_test[count] = img
@@ -468,7 +469,7 @@ def DataSet():
     # for img_name in imglist_test_13:
 
     #     img_path = test_path_13 + img_name
-    #     img = image.load_img(img_path, target_size=(224, 224))
+    #     img = image.load_img(img_path, target_size=(299, 299))
     #     img = image.img_to_array(img) / 255.0
         
     #     X_test[count] = img

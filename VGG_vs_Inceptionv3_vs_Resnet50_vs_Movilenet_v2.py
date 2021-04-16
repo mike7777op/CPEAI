@@ -7,7 +7,9 @@ import matplotlib.pyplot as plt
 from keras.models import Model
 from keras.applications.resnet50 import ResNet50
 from keras.applications.vgg16 import VGG16
-from keras.layers import Flatten, Dense, Dropout,add
+from keras.applications.inception_v3 import InceptionV3
+from keras.applications.mobilenet_v2 import MobileNetV2
+from keras.layers import Flatten, Dense, Dropout, concatenate
 from keras.preprocessing import image
 from keras.applications.resnet50 import preprocess_input, decode_predictions
 from keras.losses import categorical_crossentropy
@@ -18,21 +20,14 @@ import random
 from sklearn.metrics import confusion_matrix
 import itertools
 import visualkeras
-from collections import defaultdict
-from keras.utils import plot_model
 from keras import backend as K
-from keras.optimizers import Adam
-
 
 K.clear_session()
-
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
-os.environ['CUDA_VISIBLE_DEVICES'] = '0,1'
 config = tf.ConfigProto()
 config.gpu_options.allow_growth = True
 session = tf.InteractiveSession(config=config)
-
-
+K.set_session(session)
 
 
 X_train = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/Data_generator/Single/train_npy/X_train.npy')
@@ -46,8 +41,34 @@ print('Y_train shape : ',Y_train.shape)
 print('X_test shape : ',X_test.shape)
 print('Y_test shape : ',Y_test.shape)
 
-def model(model = 'imagenet'):
-    if model == 'imagenet':
+def model(model= 'VGG'):
+    if model == 'VGG':
+        base_model = VGG16(
+            include_top=False,
+            weights='imagenet',
+            input_tensor=None, 
+            input_shape=(224,224,3),
+            pooling='avg',
+            classes = 9)
+
+        x = base_model.output
+        x = Dropout(0.5)(x)
+        x = Dense(9, activation='softmax', name='softmax')(x)
+
+    elif model == 'Inception_v3':
+        base_model = InceptionV3(
+            include_top=False,
+            weights='imagenet',
+            input_tensor=None, 
+            input_shape=(224,224,3),
+            pooling='avg',
+            classes = 9
+        )
+        x = base_model.output
+        x = Dropout(0.5)(x)
+        x = Dense(9, activation='softmax', name='softmax')(x)
+
+    elif model == 'ResNet50':
         base_model = ResNet50(
             include_top=False,
             weights='imagenet',
@@ -60,10 +81,10 @@ def model(model = 'imagenet'):
         x = Dropout(0.5)(x)
         x = Dense(9, activation='softmax', name='softmax')(x)
 
-    elif model == 'None':
-        base_model = ResNet50(
+    elif model == 'MoblileNetv2':
+        base_model = MobileNetV2(
             include_top=False,
-            weights=None,
+            weights='imagenet',
             input_tensor=None, 
             input_shape=(224,224,3),
             pooling='avg',
@@ -79,9 +100,7 @@ def model(model = 'imagenet'):
     # for layer in model_final.layers[FREEZE_LAYERS:]:
     #     layer.trainable = True
 
-    learning_rate = 0.00003
-    optimizer = Adam(lr=learning_rate)
-    model_final.compile(optimizer=optimizer,
+    model_final.compile(optimizer=tf.compat.v1.train.AdamOptimizer(0.00003),
                 loss=categorical_crossentropy,
                 metrics=['accuracy'])
     model_final.summary()
@@ -89,28 +108,45 @@ def model(model = 'imagenet'):
     preds = model_final.evaluate(X_test, Y_test)
     acc = preds[1]
     loss = preds[0]
+    
     return history,acc,loss
 
-TF_history,TF_acc,TF_loss = model('imagenet')
-Without_history,Without_acc,Without_loss = model('None')
+Vgg_history,Vgg_acc,Vgg_loss = model('VGG')
+Inceptionv3_history,Inceptionv3_acc,Inceptionv3_loss = model('Inception_v3')
+ResNet50_history,Resnet50_acc,Resnet50_loss = model('ResNet50')
+MobileNetV2_history,MobileNetV2_acc,MobileNetV2_loss = model('MoblileNetv2')
 
-plt.plot(TF_history.history['val_accuracy'],':')
-plt.plot(Without_history.history['val_accuracy'],'--')
+plt.plot(Vgg_history.history['val_accuracy'],'r-.^')
+plt.plot(Inceptionv3_history.history['val_accuracy'],'g--D')
+plt.plot(ResNet50_history.history['val_accuracy'],'b--*')
+plt.plot(MobileNetV2_history.history['val_accuracy'],'y-o')
 plt.title('Model accuracy')
 plt.ylabel('Validation Accuracy')
-plt.xlabel('Epoch \nTF accuracy : {:0.4f}; Without TF accuracy : {:0.4f}'.format(TF_acc,Without_acc))
-plt.legend(['Tf','Without_Tf'],loc="lower right")
+plt.xlabel('Epoch \nVGG16 accuracy : {:0.4f}; InceptionV3 accuracy : {:0.4f}; ResNet50 accuracy : {:0.4f}; MobileNetV2 accuracy : {:0.4f}'.format(Vgg_acc,Inceptionv3_acc,Resnet50_acc,MobileNetV2_acc))
+plt.legend(['VGG16','InveptionV3','ResNet50','MobileNetV2'],loc="lower right")
 plt.grid(True)
 plt.show()
 
-plt.plot(TF_history.history['val_loss'],'--')
-plt.plot(Without_history.history['val_loss'],':')
-plt.title('Model valid loss')
+plt.plot(Vgg_history.history['val_loss'],'r-.^')
+plt.plot(Inceptionv3_history.history['val_loss'],'g--D')
+plt.plot(ResNet50_history.history['val_loss'],'b--*')
+plt.plot(MobileNetV2_history.history['val_loss'],'y-.')
+plt.title('Model loss')
 plt.ylabel('Loss')
-plt.xlabel('Epoch \nTF Loss : {:0.5f}; Without TF Loss : {:0.5f}'.format(TF_loss,Without_loss))
-plt.legend(['Tf','Without_Tf'],loc="upper right")
+plt.xlabel('Epoch')
+plt.legend(['VGG16','Inceptin_V3','ResNet50','MobileNetV2'],loc="upper right")
 plt.grid(True)
 plt.show()
 
-print('Test acc:',TF_acc)
-print('Test loss:',TF_loss)
+print(Vgg_history.history['loss'][99])
+print(Vgg_history.history['val_loss'][99])
+
+print(Inceptionv3_history.history['loss'][99])
+print(Inceptionv3_history.history['val_loss'][99])
+
+print(ResNet50_history.history['loss'][99])
+print(ResNet50_history.history['val_loss'][99])
+
+print(MobileNetV2_history.history['loss'][99])
+print(MobileNetV2_history.history['val_loss'][99])
+

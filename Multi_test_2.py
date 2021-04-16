@@ -12,10 +12,13 @@ from PIL import Image
 import matplotlib.pyplot as plt
 import random
 from random import choice
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score,precision_score,f1_score,recall_score,classification_report
 from sklearn.metrics import confusion_matrix
 import itertools
 import os
+import time
+
+start = time.time()
 
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 config = tf.ConfigProto()
@@ -29,10 +32,10 @@ EV_list = {0:'CB1',1:'RD',2:'None'}
 
 
 #使用pre-trained model .h5
-model = load_model('/home/pmcn/workspace/CPE_AI/Resnet50/checkpoint3/ResNet_2/Multi_MDCK_test_0221/weights_best-95_acc:0.9762.hdf5')
+model = load_model('/home/pmcn/workspace/CPE_AI/Resnet50/checkpoint3/Balance_train/500/LR:0.00003/MK2_less/Multi_1/weights_best-90_acc:0.9621.hdf5')
 
-X_test = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/IPC_0221/Single/test_npy/X_test.npy')
-Y_test = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/New_data_Generator/IPC_0221/Single/test_npy/Y_test.npy')
+X_test = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/MK2_less/Single/test_npy/X_test.npy')
+Y_test = np.load('/home/pmcn/workspace/CPE_AI/Resnet50/Balance_data/500/MK2_less/Single/test_npy/Y_test.npy')
 
 
 
@@ -1473,6 +1476,20 @@ def fusion(X_test,Y_test):
     #accuracy_score(y_true,y_pred)
     acc = accuracy_score(truelabel,new_pred,normalize=True)
     print("Accuracy: {:.2f}%".format(acc*100))
+
+    precision = precision_score(truelabel, new_pred,average='micro')
+    recall = recall_score(truelabel, new_pred, average='micro')
+    f1_scores = f1_score(truelabel, new_pred, average='micro')
+
+    print('Precision score:',precision)
+    print('Recall score:',recall)
+    print('F1_score:',f1_scores)
+    print(classification_report(truelabel, new_pred ,target_names=All_list,digits=4))
+    
+    end = time.time()
+
+    print("執行時間：%f 秒" % (end - start))
+
     # file = open('new_pred3.txt','w')
     # file.write(str(new_pred))
     # file.close()
@@ -1537,3 +1554,4 @@ def plot_confusion(model,X_test,Y_test,labels):
     plot_confusion_matrix(cm, normalize=False,target_names=labels,title='Non normalize Confusion Matrix')
 
 fusion(X_test=X_test,Y_test=Y_test)
+
