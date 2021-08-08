@@ -6,7 +6,7 @@ def copyFile(fileDir):
 	pathDir = os.listdir(fileDir)
 
     # 2
-	sample = random.sample(pathDir, 500)
+	sample = random.sample(pathDir, 300)
 	print(sample)
 	
 	# 3
@@ -14,5 +14,5 @@ def copyFile(fileDir):
 		shutil.copyfile(fileDir+name, tarDir+name)
 if __name__ == '__main__':
 	fileDir = "/home/pmcn/workspace/CPE_AI/CPE_data/Cpe_cell2.0/RD/"
-	tarDir = '/home/pmcn/workspace/CPE_AI/CPE_data/Cpe_cell2.0/RD_500/'
+	tarDir = '/home/pmcn/workspace/CPE_AI/CPE_data/Cpe_cell2.0/RD_300/'
 	copyFile(fileDir)
